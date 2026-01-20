@@ -23,4 +23,6 @@ c = 1 / sqrt(2πσ^2)
 | λ        | 0.001461926988966829 |
 | c        | 0.021571875520386332 |
 
+![Graph](graph.png)
+
 The notebook with full code is included in the repository.
