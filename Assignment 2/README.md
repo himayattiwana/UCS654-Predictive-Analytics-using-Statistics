@@ -60,7 +60,7 @@ Quality of Generated Distribution:
 - The generated samples form a valid probability distribution.
 - The learned PDF is approximate and reflects GAN limitations.
 
-!(graph.png)
+![graph](graph.png)
 
 ---
 
