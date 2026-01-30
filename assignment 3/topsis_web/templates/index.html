@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>TOPSIS Web Service</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    Upload CSV:<br>
+    <input type="file" name="file" required><br><br>
+
+    Weights:<br>
+    <input type="text" name="weights" placeholder="1,1,1,1" required><br><br>
+
+    Impacts:<br>
+    <input type="text" name="impacts" placeholder="+,+,-,+" required><br><br>
+
+    Sender Email:<br>
+    <input type="email" name="sender_email" required><br><br>
+
+    Email App Password:<br>
+    <input type="password" name="sender_password" required><br><br>
+
+    Receiver Email:<br>
+    <input type="email" name="receiver_email" required><br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
