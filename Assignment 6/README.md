@@ -1,46 +1,46 @@
-# Physics-Driven Synthetic Data Generation and Regression Model Evaluation
+# Simulation-Driven Data Generation and Regression Model Evaluation
 
-This project implements a simulation-based approach to generate structured synthetic data using mathematical modelling and evaluates machine learning regression algorithms on the generated dataset.
+This project demonstrates how mathematical modelling and simulation can be used to generate synthetic datasets and evaluate machine learning regression algorithms.
 
-The workflow demonstrates how modelling, simulation, and machine learning integrate to form a complete analytical pipeline.
+Instead of using externally collected data, a physics-based simulation is implemented to produce structured observations governed by projectile motion equations. The generated dataset is then used to train and compare multiple machine learning models.
 
 ---
 
-## Project Objective
+## Objective
 
-The objective of this work is to:
+The aim of this project is to:
 
-- Design a physics-based simulation system  
-- Generate synthetic training data using mathematical equations  
-- Train regression models on simulation-generated observations  
+- Develop a simulation-based data generation workflow  
+- Create synthetic data using mathematical modelling  
+- Train regression models on simulated observations  
 - Evaluate predictive performance using statistical metrics  
-- Compare linear, nonlinear, and ensemble learning approaches  
+- Compare model effectiveness for nonlinear systems  
 
-This approach is particularly useful when real-world data collection is expensive, time-consuming, or impractical.
+This approach highlights the integration of modelling, simulation, and machine learning.
 
 ---
 
-## System Overview
+## Simulation Overview
 
-A projectile motion model is used to generate synthetic observations. The system is governed by deterministic physical equations, while Gaussian noise is introduced to simulate measurement uncertainties.
+Projectile motion is used as the physical system for simulation. The motion is governed by deterministic equations, while Gaussian noise is added to simulate real-world measurement uncertainty.
 
-This produces a dataset similar to sensor-generated readings in real-world environments.
+The simulation produces structured data similar to readings obtained from sensors in engineering systems.
 
 ---
 
 ## Mathematical Model
 
-Projectile range is calculated using:
+Projectile range equation:
 
 R = (v² · sin(2θ)) / g  
 
 Where:
 
-- v = initial velocity  
+- v = launch velocity  
 - θ = launch angle  
-- g = gravitational acceleration (9.81 m/s²)  
+- g = gravitational acceleration (9.81 m/s²)
 
-The nonlinear structure of this equation makes it ideal for testing machine learning algorithms.
+This nonlinear equation makes the dataset suitable for regression analysis.
 
 ---
 
@@ -55,42 +55,37 @@ The nonlinear structure of this equation makes it ideal for testing machine lear
 
 ---
 
-## Data Generation Pipeline
+## Dataset Generation
 
-1. Define physics model  
-2. Randomize input parameters  
-3. Compute projectile range  
-4. Inject Gaussian noise  
-5. Store structured dataset  
-6. Export for ML training  
+Synthetic data is generated using a physics simulation pipeline:
 
-Output dataset file:
+1. Random parameter generation  
+2. Projectile range calculation  
+3. Noise injection  
+4. Dataset creation  
+5. Export to CSV  
 
-`synthetic_projectile_data.csv`
+Output dataset:
+
+`simulation_dataset.csv`
 
 ---
 
-## Simulation Analysis
+## Simulation Visualizations
 
 ### Angle vs Range Distribution
-
-This visualization confirms nonlinear projectile behaviour.
 
 ![Angle vs Range](physics_simulation_visual.png)
 
 ---
 
-### Velocity Influence on Range
-
-Higher initial velocity produces significantly larger projectile distance.
+### Velocity vs Range Relationship
 
 ![Velocity vs Range](velocity_range_relationship.png)
 
 ---
 
-### Angle vs Velocity Density Distribution
-
-Shows interaction between input variables across the dataset.
+### Angle–Velocity Density Distribution
 
 ![Angle Velocity Density](angle_velocity_density.png)
 
@@ -98,11 +93,11 @@ Shows interaction between input variables across the dataset.
 
 ## Machine Learning Workflow
 
-1. Load generated dataset  
-2. Perform train-test split  
+1. Load dataset  
+2. Split into training and testing sets  
 3. Train regression models  
-4. Evaluate predictions  
-5. Compare performance  
+4. Evaluate performance  
+5. Compare results  
 
 ---
 
@@ -130,106 +125,72 @@ Measures prediction error magnitude.
 
 ## Model Evaluation Visualizations
 
-### Model Performance Comparison (R²)
+### R² Comparison
 
-![Model R2 Comparison](regression_model_comparison.png)
+![Model Comparison](regression_model_comparison.png)
 
 ---
 
 ### RMSE Comparison
 
-![RMSE Comparison](rmse_model_comparison.png)
+![RMSE](rmse_model_comparison.png)
 
 ---
 
-### Prediction vs Actual (Best Model)
+### Prediction vs Actual
 
-Illustrates how closely predicted values align with actual simulation outputs.
-
-![Prediction Accuracy](prediction_vs_actual.png)
+![Prediction](prediction_vs_actual.png)
 
 ---
 
-### Residual Error Distribution
+### Residual Distribution
 
-Shows error dispersion across predictions.
-
-![Residual Plot](residual_error_distribution.png)
+![Residuals](residual_error_distribution.png)
 
 ---
 
-### Feature Importance (Tree-Based Models)
-
-Highlights contribution of input variables in prediction.
+### Feature Importance
 
 ![Feature Importance](feature_importance_plot.png)
 
 ---
 
-## Results and Observations
+## Results
 
-Key findings from experiments:
+Observations:
 
-- Linear models underperform due to nonlinear relationships  
-- Tree-based models adapt better to structured nonlinear data  
-- Ensemble methods achieve highest predictive accuracy  
-- Random Forest and Gradient Boosting provide stable performance  
-
-The results confirm that simulation-generated nonlinear datasets benefit significantly from ensemble learning approaches.
+- Linear models show limited performance due to nonlinear relationships  
+- Tree-based models adapt better to structured data  
+- Ensemble models achieve highest predictive accuracy  
+- Random Forest and Gradient Boosting perform best overall  
 
 ---
 
 ## Project Structure
 
 ### Notebooks
+- physics_simulation_pipeline.ipynb  
+- regression_training_evaluation.ipynb  
 
-- `physics_simulation_pipeline.ipynb`  
-  Synthetic data generation using mathematical modelling  
-
-- `regression_training_evaluation.ipynb`  
-  Model training, evaluation, and performance comparison  
-
----
-
-### Generated Data
-
-- `synthetic_projectile_data.csv`  
-  Dataset produced from simulation  
-
-- `regression_performance_summary.csv`  
-  Evaluation metrics for all regression models  
-
----
+### Generated Files
+- simulation_dataset.csv  
+- model_metrics.csv  
 
 ### Visual Outputs
-
-- `physics_simulation_visual.png`  
-- `velocity_range_relationship.png`  
-- `angle_velocity_density.png`  
-- `regression_model_comparison.png`  
-- `rmse_model_comparison.png`  
-- `prediction_vs_actual.png`  
-- `residual_error_distribution.png`  
-- `feature_importance_plot.png`  
+- physics_simulation_visual.png  
+- velocity_range_relationship.png  
+- angle_velocity_density.png  
+- regression_model_comparison.png  
+- rmse_model_comparison.png  
+- prediction_vs_actual.png  
+- residual_error_distribution.png  
+- feature_importance_plot.png  
 
 ---
 
 ## Technology Stack
 
-- Python  
-- NumPy  
-- Pandas  
-- Matplotlib  
-- Scikit-learn  
-- Google Colab  
-
----
-
-## Conclusion
-
-This project validates the effectiveness of combining modelling, simulation, and machine learning into a single pipeline. Synthetic datasets generated from physics equations provide a controlled environment for evaluating algorithmic performance.
-
-Ensemble models demonstrate strong capability in learning nonlinear relationships, making them well-suited for simulation-driven datasets.
+Python, NumPy, Pandas, Matplotlib, Scikit-learn, Google Colab
 
 ---
 
