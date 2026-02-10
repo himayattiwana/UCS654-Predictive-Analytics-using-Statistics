@@ -1,168 +1,181 @@
-# Pretrained Conversational Model Comparison Using TOPSIS
+# Multi-Criteria Ranking of Conversational AI Models Using TOPSIS
 
-## Overview
+## Project Context
 
-Conversational AI models are a core component of modern Natural Language
-Processing (NLP) systems and are widely used in applications such as
-chatbots, virtual assistants, customer support automation, and
-interactive recommendation systems. These models are designed to
-generate context-aware, fluent, and relevant responses during
-human--machine interactions.
+Recent advances in Natural Language Processing have led to the rapid adoption of conversational AI systems in domains such as customer service automation, digital assistants, educational platforms, and recommendation engines. Selecting the most appropriate conversational model is not straightforward because performance depends on multiple factors, including response quality, semantic accuracy, inference efficiency, and resource consumption.
 
-This project presents a comparative evaluation of multiple pre-trained
-conversational models using the TOPSIS (Technique for Order Preference
-by Similarity to Ideal Solution) method. Instead of relying on a single
-evaluation metric, TOPSIS enables a balanced comparison by considering
-both dialogue quality and computational efficiency.
+This project develops a structured evaluation framework to compare several pre-trained dialogue models using a multi-criteria decision-making technique known as TOPSIS (Technique for Order Preference by Similarity to Ideal Solution). The approach enables objective ranking by simultaneously considering quality-related and efficiency-related metrics.
 
-## Objective
+---
 
-The primary objectives of this project are:
+## Aim of the Study
 
--   To evaluate multiple pre-trained conversational models on dialogue
-    generation tasks\
--   To compare models using multiple quantitative and qualitative
-    metrics\
--   To apply TOPSIS for multi-criteria decision-making\
--   To identify the most suitable conversational model based on overall
-    performance
+The work focuses on systematically assessing conversational models rather than relying on a single performance indicator.
 
-## Models Evaluated
+Key goals include:
 
-The following pre-trained conversational models were evaluated:
+- Assess dialogue-generation capability across multiple models  
+- Measure performance using both linguistic quality and computational efficiency indicators  
+- Apply a structured ranking mechanism using TOPSIS  
+- Determine the most suitable conversational model based on combined criteria  
 
--   DialoGPT\
--   BlenderBot\
--   FLAN-T5\
--   BERT-based Retrieval Conversational Model\
--   LLaMA-2 Chat
+---
 
-These models vary in architecture, response generation capability,
-inference speed, and resource requirements.
+## Conversational Models Considered
 
-## Dataset
+The evaluation includes a mix of generative and retrieval-based architectures to capture a wide design spectrum:
 
-The evaluation was conducted using conversational prompts derived from
-the DailyDialog dataset, which contains human-like everyday
-conversations across multiple scenarios.
+- DialoGPT  
+- BlenderBot  
+- FLAN-T5  
+- BERT-based Retrieval Conversational System  
+- LLaMA-2 Chat  
 
-A fixed subset of prompts and reference responses was used to ensure
-consistent and comparable evaluation across all conversational models.
+These models differ in terms of architecture, response fluency, contextual reasoning ability, and hardware requirements.
 
-## Evaluation Metrics
+---
 
-### Benefit Criteria (Higher is Better)
+## Evaluation Dataset
 
--   BLEU Score\
--   ROUGE-L Score\
--   BERTScore\
--   Human Evaluation Score (Relevance and Fluency)
+A subset of prompts was curated from the DailyDialog corpus, which contains realistic, human-like conversational exchanges across common scenarios such as greetings, discussions, requests, and opinions.
 
-### Cost Criteria (Lower is Better)
+Using a fixed set of prompts ensured that each model was evaluated under identical conditions, allowing fair comparison.
 
--   Inference Time (ms)\
--   Model Size (MB)
+---
 
-## Criteria Weights
+## Performance Indicators
 
-  Criterion                Weight
-  ------------------------ --------
-  BLEU Score               0.15
-  ROUGE-L                  0.15
-  BERTScore                0.20
-  Human Evaluation Score   0.25
-  Inference Time           0.15
-  Model Size               0.10
+To enable balanced comparison, evaluation criteria were divided into benefit and cost dimensions.
 
-## Methodology: TOPSIS
+### Quality-Oriented Indicators (Higher Preferred)
 
-The Technique for Order Preference by Similarity to Ideal Solution
-(TOPSIS) was applied using the following steps:
+- BLEU score  
+- ROUGE-L score  
+- BERTScore  
+- Human judgement score (fluency and relevance)
 
--   Construct the decision matrix using conversational model evaluation
-    metrics\
--   Normalize the decision matrix\
--   Apply predefined criterion weights\
--   Determine ideal best and ideal worst solutions\
--   Compute Euclidean distances from ideal solutions\
--   Calculate the TOPSIS closeness coefficient\
--   Rank models based on TOPSIS scores
+### Efficiency-Oriented Indicators (Lower Preferred)
 
-Models closer to the ideal solution receive higher TOPSIS scores and are
-considered more suitable.
+- Inference time  
+- Model size  
 
-## Project Files
+---
 
--   model_metrics_conversational.csv -- Raw conversational evaluation
-    metrics\
--   topsis_conversational_results.csv -- Final TOPSIS scores and
-    rankings\
--   Python notebook -- TOPSIS computation and visualization\
--   topsis_conversational_ranking.png -- Visualization of TOPSIS
-    rankings
+## Weight Assignment Strategy
 
-## Results
+Different criteria contribute unequally to overall conversational performance. Therefore, weighted importance was assigned based on relevance to dialogue quality and deployment feasibility.
 
-The final ranking of the evaluated pre-trained conversational models is
-shown below.
+| Criterion | Weight |
+|----------|--------|
+| BLEU | 0.15 |
+| ROUGE-L | 0.15 |
+| BERTScore | 0.20 |
+| Human Evaluation | 0.25 |
+| Inference Time | 0.15 |
+| Model Size | 0.10 |
 
-  Rank   Model            TOPSIS Score
-  ------ ---------------- --------------
-  1      LLaMA-2 Chat     0.8125
-  2      BlenderBot       0.7452
-  3      FLAN-T5          0.5984
-  4      DialoGPT         0.4321
-  5      BERT Retrieval   0.2876
+Human evaluation and semantic similarity metrics were prioritized because they directly reflect conversational effectiveness.
 
-## TOPSIS Score Visualization
+---
 
-The horizontal bar chart illustrates the TOPSIS scores of the evaluated
-conversational models and highlights their relative performance.
-![Alt text](topsis_graph.png)
+## Ranking Framework
 
+The ranking process was carried out using the TOPSIS method, which identifies alternatives closest to an ideal solution and farthest from the worst-case solution.
 
-## Key Insights
+The procedure followed these stages:
 
--   LLaMA-2 Chat achieved the highest TOPSIS score, indicating superior
-    dialogue quality along with strong performance across evaluation
-    metrics.\
--   BlenderBot demonstrated strong conversational coherence and
-    competitive semantic similarity scores.\
--   FLAN-T5 provided balanced performance with moderate computational
-    cost.\
--   DialoGPT showed acceptable response quality but lower semantic
-    alignment compared to newer models.\
--   The BERT-based retrieval model ranked lowest due to limited
-    generative capability despite faster inference time.
+1. Construct a decision matrix using evaluation metrics  
+2. Normalize metric values to remove scale differences  
+3. Apply criterion weights  
+4. Identify ideal best and worst reference points  
+5. Compute Euclidean distance from both reference points  
+6. Derive TOPSIS closeness coefficient  
+7. Rank models based on coefficient values  
 
-These results highlight that modern conversational architectures
-outperform earlier dialogue systems when evaluated across multiple
-criteria.
+Higher closeness scores indicate better overall suitability.
 
-## Conclusion
+---
 
-This project demonstrates the importance of multi-criteria
-decision-making in selecting conversational AI models. While some models
-may excel in response quality, others may be more efficient in terms of
-computational requirements. The TOPSIS method provides an objective
-framework that balances both aspects to identify the most suitable
-conversational model.
+## Project Components
 
-The results indicate that LLaMA-2 Chat is the most effective
-conversational model among the evaluated alternatives when both quality
-and efficiency metrics are considered.
+### Data Files
+- `model_metrics_conversational.csv` — compiled evaluation metrics for each model  
+- `topsis_conversational_results.csv` — final ranking scores after TOPSIS computation  
 
-## Future Scope
+### Notebook
+- Implementation of TOPSIS workflow and visual analysis  
 
--   Incorporate dynamic or task-specific weighting of evaluation
-    criteria\
--   Evaluate conversational models on domain-specific datasets\
--   Include latency stability and memory utilization as additional
-    metrics\
--   Extend evaluation to multilingual conversational systems\
--   Compare fine-tuned models against base pre-trained architectures
+### Visualization
+- `topsis_graph.png` — graphical representation of TOPSIS scores  
+
+---
+
+## Comparative Findings
+
+The final ranking derived from the multi-criteria evaluation is summarized below:
+
+| Rank | Model | TOPSIS Score |
+|------|------|--------------|
+| 1 | LLaMA-2 Chat | 0.8125 |
+| 2 | BlenderBot | 0.7452 |
+| 3 | FLAN-T5 | 0.5984 |
+| 4 | DialoGPT | 0.4321 |
+| 5 | BERT Retrieval Model | 0.2876 |
+
+---
+
+## Visual Representation of Rankings
+
+The figure below presents a comparative view of TOPSIS scores across all evaluated conversational systems.
+
+![TOPSIS Ranking](topsis_graph.png)
+
+---
+
+## Interpretation of Results
+
+The ranking indicates a clear performance gradient among the evaluated models.
+
+- LLaMA-2 Chat demonstrates strong contextual reasoning and language generation capability, leading to superior overall performance.  
+- BlenderBot shows high coherence and semantic consistency across responses.  
+- FLAN-T5 maintains balanced performance across linguistic and computational metrics.  
+- DialoGPT performs reasonably well but falls short in semantic similarity measures.  
+- Retrieval-based BERT systems show efficiency advantages but limited generative flexibility.
+
+The analysis suggests that modern generative architectures outperform earlier conversational systems when evaluated holistically.
+
+---
+
+## Key Takeaways
+
+- Multi-metric evaluation provides more reliable insights than single-metric comparison  
+- Human judgement plays a critical role in assessing conversational effectiveness  
+- Efficiency factors such as inference time significantly impact deployment feasibility  
+- Ensemble evaluation techniques like TOPSIS support objective decision-making  
+
+---
+
+## Concluding Remarks
+
+This study highlights the importance of structured decision frameworks for selecting conversational AI models. Instead of prioritizing a single metric, the TOPSIS method enables a balanced comparison between linguistic quality and operational efficiency.
+
+Based on the multi-criteria analysis, LLaMA-2 Chat emerges as the most suitable conversational model among the alternatives considered in this study.
+
+---
+
+## Potential Extensions
+
+Future work may explore:
+
+- Adaptive weighting strategies depending on deployment scenarios  
+- Evaluation using domain-specific conversational datasets  
+- Inclusion of latency stability and memory footprint as additional metrics  
+- Assessment of multilingual conversational systems  
+- Comparative analysis between fine-tuned and base pre-trained models  
+
+---
 
 ## Author
 
-Name: Himayat Singh Tiwana\
-Roll No: 102313049
+**Name:** Himayat Singh Tiwana  
+**Roll No:** 102313049
