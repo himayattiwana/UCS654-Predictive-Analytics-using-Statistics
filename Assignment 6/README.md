@@ -91,6 +91,9 @@ The scatter distribution of launch angle versus range forms a nonlinear pattern 
 
 This confirms that the simulated data correctly reflects real-world physical behaviour.
 
+![Alt text](projectile_sim.png)
+
+
 ---
 
 ## Machine Learning Workflow
