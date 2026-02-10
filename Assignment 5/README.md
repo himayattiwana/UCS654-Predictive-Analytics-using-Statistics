@@ -118,6 +118,8 @@ shown below.
 
 The horizontal bar chart illustrates the TOPSIS scores of the evaluated
 conversational models and highlights their relative performance.
+![Alt text](topsis_graph.png)
+
 
 ## Key Insights
 
