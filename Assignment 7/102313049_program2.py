@@ -17,9 +17,12 @@ Required environment variables for email sending:
 
 from __future__ import annotations
 
+from collections import defaultdict, deque
 import re
 import shutil
 import smtplib
+import threading
+import time
 import uuid
 from datetime import datetime
 from email.message import EmailMessage
@@ -35,8 +38,32 @@ from yt_dlp import YoutubeDL
 ROLL_NO = "102313049"
 BASE_DIR = Path(__file__).resolve().parent
 JOBS_DIR = BASE_DIR / "jobs"
+ENV_FILE = BASE_DIR / ".env"
 
 app = Flask(__name__)
+
+REQUEST_LOGS: dict[str, deque[float]] = defaultdict(deque)
+REQUEST_LOCK = threading.Lock()
+RATE_LIMIT_WINDOW_SECONDS = 600
+RATE_LIMIT_MAX_REQUESTS = 5
+
+
+def load_local_env() -> None:
+    if not ENV_FILE.exists():
+        return
+
+    for raw_line in ENV_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip("'").strip('"')
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+load_local_env()
 
 
 def validate_email(email: str) -> bool:
@@ -145,17 +172,48 @@ def send_email_with_attachment(recipient: str, zip_file: Path) -> None:
         server.send_message(message)
 
 
+def get_client_ip() -> str:
+    forwarded_for = request.headers.get("X-Forwarded-For", "")
+    if forwarded_for:
+        return forwarded_for.split(",")[0].strip()
+    return (request.remote_addr or "unknown").strip()
+
+
+def enforce_rate_limit(client_ip: str) -> None:
+    now = time.time()
+    with REQUEST_LOCK:
+        bucket = REQUEST_LOGS[client_ip]
+        while bucket and now - bucket[0] > RATE_LIMIT_WINDOW_SECONDS:
+            bucket.popleft()
+        if len(bucket) >= RATE_LIMIT_MAX_REQUESTS:
+            raise ValueError(
+                f"Rate limit exceeded. Try again after {RATE_LIMIT_WINDOW_SECONDS // 60} minutes."
+            )
+        bucket.append(now)
+
+
+def enforce_access_key(provided_key: str) -> None:
+    required_key = os.environ.get("APP_ACCESS_KEY", "").strip()
+    if required_key and provided_key.strip() != required_key:
+        raise ValueError("Invalid access key.")
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
         return render_template("program2.html")
 
+    client_ip = get_client_ip()
+    access_key = request.form.get("access_key", "")
     singer_name = request.form.get("singer_name", "").strip()
     videos_raw = request.form.get("number_of_videos", "").strip()
     duration_raw = request.form.get("duration_seconds", "").strip()
     email = request.form.get("email", "").strip()
 
     try:
+        enforce_rate_limit(client_ip)
+        enforce_access_key(access_key)
+
         if not singer_name:
             raise ValueError("Singer name is required.")
 
@@ -204,5 +262,11 @@ def index():
 
 
 if __name__ == "__main__":
+    RATE_LIMIT_WINDOW_SECONDS = int(os.environ.get("RATE_LIMIT_WINDOW_SECONDS", "600"))
+    RATE_LIMIT_MAX_REQUESTS = int(os.environ.get("RATE_LIMIT_MAX_REQUESTS", "5"))
     JOBS_DIR.mkdir(parents=True, exist_ok=True)
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(
+        host=os.environ.get("HOST", "0.0.0.0"),
+        port=int(os.environ.get("PORT", "5000")),
+        debug=os.environ.get("FLASK_DEBUG", "false").lower() == "true",
+    )

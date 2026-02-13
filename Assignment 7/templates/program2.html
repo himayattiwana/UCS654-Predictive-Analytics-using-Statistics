@@ -65,6 +65,9 @@
   <h1>Program 2 [Required]: Mashup Web Service</h1>
 
   <form method="post" action="/">
+    <label for="access_key">Access Key (required if APP_ACCESS_KEY is set)</label>
+    <input id="access_key" name="access_key" type="password" placeholder="Enter access key">
+
     <label for="singer_name">Singer Name</label>
     <input id="singer_name" name="singer_name" type="text" value="{{ singer_name or '' }}" required>
 
