@@ -21,3 +21,8 @@ This repository contains my solution for the Sampling assignment in UCS654 (Pred
 
 The complete code, outputs, and discussion are included in the notebook:
 `Sampling_Assignment.ipynb`.
+
+---
+
+Name: Himayat Singh Tiwana  
+Roll No.: 102313049
