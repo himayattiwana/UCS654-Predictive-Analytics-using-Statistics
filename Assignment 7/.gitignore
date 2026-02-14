@@ -1,0 +1,9 @@
+.env
+jobs/
+downloads/
+clips/
+__pycache__/
+*.pyc
+*.pyo
+*.zip
+*.mp3
